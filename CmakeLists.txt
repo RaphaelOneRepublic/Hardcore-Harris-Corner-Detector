@@ -11,6 +11,7 @@ add_executable(
         src/main.cpp
         src/utilities.cpp
         src/derivative.cpp
+        src/harris.cpp
 )
 
 

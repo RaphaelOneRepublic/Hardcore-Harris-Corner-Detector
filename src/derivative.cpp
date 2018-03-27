@@ -4,6 +4,13 @@
 
 #include "derivative.h"
 
+Derivative::Derivative(const Mat& mat){
+    _mat = mat;
+    _Ix = Mat::zeros(mat.rows - 2, mat.cols - 2, CV_32FC1);
+    _Iy = Mat::zeros(mat.rows - 2, mat.cols - 2, CV_32FC1);
+    _Ixy = Mat::zeros(mat.rows - 2, mat.cols - 2, CV_32FC1);
+}
+
 void Derivative::compute_sobel_derivatives() {
     Mat horizontal_self = _mat(Range(0, _mat.rows), Range(1, _mat.cols - 1));
     Mat left            = _mat(Range(0, _mat.rows), Range(0, _mat.cols - 2));
