@@ -12,6 +12,7 @@
 #define DEFAULT_HARRIS_K 0.04
 #define DEFAULT_FILTER_SIZE 3
 #define DEFAULT_SIGMA 1
+#define DEFAULT_MAX_PERCENTAGE 0.05
 
 using namespace cv;
 using namespace std;
@@ -23,7 +24,10 @@ private:
     int _radius;
     float _sigma;
 public:
-    Harris(const Mat& img, float k, int radius,float sigma);
+    explicit Harris(const Mat &img,
+                    float k = DEFAULT_HARRIS_K,
+                    int radius = DEFAULT_FILTER_SIZE,
+                    float sigma = DEFAULT_SIGMA);
     Mat harris_response();
     static vector<Point> non_maximum_suppression(Mat _mat);
 };

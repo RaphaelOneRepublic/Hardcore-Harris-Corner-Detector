@@ -3,7 +3,7 @@
 //
 #include "harris.h"
 
-Harris::Harris(const Mat &img, float k = DEFAULT_HARRIS_K, int radius = DEFAULT_FILTER_SIZE, float sigma = DEFAULT_SIGMA){
+Harris::Harris(const Mat &img, float k, int radius, float sigma) {
     _mat = img;
     _k = k;
     _radius = radius;
@@ -32,27 +32,30 @@ Mat Harris::harris_response() {
 }
 
 vector<Point> Harris::non_maximum_suppression(Mat _mat) {
-    double maxStrength;
-    double minStrength;
-    std::vector<Point> points;
-
-    cout << _mat << endl;
-
-    minMaxLoc(_mat, &minStrength, &maxStrength);
-
+    std::vector<Point> points, result;
     Mat dilated;
-    Mat local;
-
+    Mat local_maximum;
     dilate(_mat, dilated, Mat());
+    compare(_mat, dilated, local_maximum, CMP_EQ);
+    findNonZero(local_maximum, points);
 
-    cout << dilated << endl;
+    sort(
+            points.begin(), points.end(),
+            [&_mat](const Point &x, const Point &y) -> bool {
+                return _mat.at<float>(x) > _mat.at<float>(y);
+            });
 
-    compare(_mat, dilated, local, CMP_EQ);
+    for (int i = 0; i < points.size() * DEFAULT_MAX_PERCENTAGE; ++i) {
+        result.push_back(points.at(static_cast<unsigned long>(i)));
+    }
 
-    cout << local << endl;
-
-    findNonZero(local, points);
-    return points;
+    return result;
 }
 
 
+//int main(){
+//    Mat m(10,10, CV_8UC1);
+//    randu(m, Scalar(-10), Scalar(10));
+//    auto r = Harris::non_maximum_suppression(m);
+//}
+//

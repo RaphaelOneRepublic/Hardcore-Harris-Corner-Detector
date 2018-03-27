@@ -5,16 +5,28 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <utilities.h>
+#include <harris.h>
 
 using namespace cv;
 using namespace std;
 
 int main(){
     std::cout << "Hello World" <<std::endl;
-    auto img = imread("../sources/office_gray.bmp", IMREAD_COLOR);
-    img.convertTo(img, CV_32FC1);
+    auto img = imread("../sources/haus.jpg", IMREAD_COLOR);
+    Mat img32;
+    cvtColor(img, img32, CV_RGB2GRAY);
 
-    PRINT_MAT(img);
+    img32.convertTo(img32, CV_32FC1);
+    Harris harris(img32);
+
+    auto response = harris.harris_response();
+    auto corners = Harris::non_maximum_suppression(response);
+
+
+    for (auto i = corners.begin(); i < corners.end(); ++i) {
+        circle(img, *i, 3, Scalar(255, 0, 0));
+    }
+
     display_image(img);
     return 0;
 }
