@@ -9,12 +9,12 @@
 using namespace cv;
 using namespace std;
 
-//int main(){
-//    std::cout << "Hello World" <<std::endl;
-//    auto img = imread("../sources/office_gray.bmp", IMREAD_COLOR);
-//    img.convertTo(img, CV_32FC1);
-//
-//    PRINT_MAT(img);
-//    display_image(img);
-//    return 0;
-//}
+int main(){
+    std::cout << "Hello World" <<std::endl;
+    auto img = imread("../sources/office_gray.bmp", IMREAD_COLOR);
+    img.convertTo(img, CV_32FC1);
+
+    PRINT_MAT(img);
+    display_image(img);
+    return 0;
+}
