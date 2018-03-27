@@ -19,8 +19,8 @@ void Derivative::compute_sobel_derivatives() {
     Mat above           = _mat(Range(0, _mat.rows - 2), Range(0, _mat.cols));
     Mat under           = _mat(Range(2, _mat.rows), Range(0, _mat.cols));
 
-    Mat horizontal_sum = Mat(horizontal_self * 2 + left + right);
-    Mat vertical_sum = Mat(vertical_self * 2 + above + under);
+    Mat horizontal_sum = horizontal_self * 2 + left + right;
+    Mat vertical_sum = vertical_self * 2 + above + under;
 
     _Iy     = - horizontal_sum(Range(0, _mat.rows - 2), Range(0, horizontal_sum.cols))
               + horizontal_sum(Range(2, _mat.rows), Range(0, horizontal_sum.cols));

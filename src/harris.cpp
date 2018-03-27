@@ -51,11 +51,3 @@ vector<Point> Harris::non_maximum_suppression(Mat _mat) {
 
     return result;
 }
-
-
-//int main(){
-//    Mat m(10,10, CV_8UC1);
-//    randu(m, Scalar(-10), Scalar(10));
-//    auto r = Harris::non_maximum_suppression(m);
-//}
-//
