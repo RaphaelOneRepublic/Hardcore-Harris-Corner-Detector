@@ -10,4 +10,3 @@ gen
 .idea/
 bin/
 cmake-build-debug/
-src/
