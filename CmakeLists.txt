@@ -4,10 +4,17 @@ find_package( OpenCV REQUIRED )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
+include_directories(include)
+
 add_executable(
         hardcore_harris_corner_detector
         src/main.cpp
+        src/utilities.cpp
+        src/derivative.cpp
 )
+
+
+
 target_link_libraries(
         hardcore_harris_corner_detector
         ${OpenCV_LIBS}
