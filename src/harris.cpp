@@ -31,7 +31,7 @@ Mat Harris::harris_response() {
 
 }
 
-vector<Point> Harris::non_maximum_suppression(Mat _mat) {
+vector<Point> Harris::non_maximum_suppression(Mat _mat, float _threshold) {
     std::vector<Point> points, result;
     Mat dilated;
     Mat local_maximum;
@@ -45,8 +45,11 @@ vector<Point> Harris::non_maximum_suppression(Mat _mat) {
                 return _mat.at<float>(x) > _mat.at<float>(y);
             });
 
-    for (int i = 0; i < points.size() * DEFAULT_MAX_PERCENTAGE; ++i) {
-        result.push_back(points.at(static_cast<unsigned long>(i)));
+    auto point = points.begin();
+    while (point != points.end()) {
+        if (_mat.at<float>(*point) > _threshold)
+            result.push_back(*point);
+        point++;
     }
 
     return result;

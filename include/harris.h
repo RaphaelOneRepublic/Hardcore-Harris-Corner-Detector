@@ -9,10 +9,10 @@
 #include <derivative.h>
 #include <vector>
 
-#define DEFAULT_HARRIS_K 0.04
-#define DEFAULT_FILTER_SIZE 3
-#define DEFAULT_SIGMA 1
-#define DEFAULT_MAX_PERCENTAGE 0.05
+#define DEFAULT_HARRIS_K 0.02
+#define DEFAULT_FILTER_SIZE 5
+#define DEFAULT_SIGMA 2.5
+#define DEFAULT_THRESHOLD 90000
 
 using namespace cv;
 using namespace std;
@@ -29,7 +29,8 @@ public:
                     int radius = DEFAULT_FILTER_SIZE,
                     float sigma = DEFAULT_SIGMA);
     Mat harris_response();
-    static vector<Point> non_maximum_suppression(Mat _mat);
+
+    static vector<Point> non_maximum_suppression(Mat _mat, float _threshold = DEFAULT_THRESHOLD);
 };
 
 
